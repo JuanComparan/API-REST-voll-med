@@ -6,6 +6,10 @@ public record DatosDetalleConsulta(
         Long id,
         Long idPaciente,
         Long idMedico,
-        LocalDateTime fecha
+        LocalDateTime fecha,
+        Boolean activa
 ) {
+    public DatosDetalleConsulta(Consulta consulta) {
+        this(consulta.getId(), consulta.getPaciente().getId(), consulta.getMedico().getId(), consulta.getFecha(), consulta.getActivo());
+    }
 }

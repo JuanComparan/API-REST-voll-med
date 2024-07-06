@@ -32,4 +32,33 @@ public class Consulta {
 
     private LocalDateTime fecha;
 
+    private Boolean activo;
+
+    @Column(name = "motivo")
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamiento motivoCancelamiento;
+
+
+    public Consulta(Medico medico, Paciente paciente, LocalDateTime fecha){
+        this.medico = medico;
+        this.paciente = paciente;
+        this.fecha = fecha;
+    }
+
+    public void cancelar(MotivoCancelamiento motivo){
+        this.motivoCancelamiento = motivo;
+    }
+
+    public String desactivarConsulta() {
+        this.activo = false;
+        if (!this.medico.getActivo()) {
+            return ("Consulta desactivada, motivo: el medico se dio de baja");
+        }
+        if (!this.paciente.getActivo()) {
+            return ("Consulta desactivada, motivo: el paciente se dio de baja");
+        }
+        else {
+            return ("Consulta desactivada, motivo: personales u otros");
+        }
+    }
 }
